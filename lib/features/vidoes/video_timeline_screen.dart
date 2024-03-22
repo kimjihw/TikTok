@@ -35,17 +35,28 @@ class _VideoTimelineScreenState extends State<VideoTimelineScreen> {
   }
 
   void _onVideoFinished() {
+    return;
+    // 아래거를 활성화 하면 다음 페이지로 이동
     _pageController.nextPage(duration: _scrollDuration, curve: _scrollCurve);
+  }
+  Future<void> _onRefresh(){
+    return Future.delayed(Duration(seconds: 1));
   }
 
   @override
   Widget build(BuildContext context) {
-    return PageView.builder(
-      scrollDirection: Axis.vertical,
-      onPageChanged: _onPageChanged,
-      controller: _pageController,
-      itemCount: _itemCount,
-      itemBuilder: (context, index) => VideoPost(onVideoFinished : _onVideoFinished),
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      displacement: 50,
+      edgeOffset: 10,
+      color: Theme.of(context).primaryColor,
+      child: PageView.builder(
+        scrollDirection: Axis.vertical,
+        onPageChanged: _onPageChanged,
+        controller: _pageController,
+        itemCount: _itemCount,
+        itemBuilder: (context, index) => VideoPost(onVideoFinished : _onVideoFinished, index : index),
+      ),
     );
   }
 }
