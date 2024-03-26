@@ -24,12 +24,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   }
 
   void _onPostVideoTap() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Container(), fullscreenDialog: true));
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Container(), fullscreenDialog: true));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: _selectedIndex == 0 ? Colors.black : Colors.white,
       body: Stack(
         children: [
@@ -37,10 +39,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             offstage: _selectedIndex != 0,
             child: VideoTimelineScreen(),
           ),
-          Offstage(
-            offstage: _selectedIndex != 1,
-            child: Container()
-          ),
+          Offstage(offstage: _selectedIndex != 1, child: Container()),
           Offstage(
             offstage: _selectedIndex != 3,
             child: Container(),
@@ -52,39 +51,50 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         ],
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.black,
+        surfaceTintColor: _selectedIndex == 0 ? Colors.black : Colors.white,
+        color: _selectedIndex == 0 ? Colors.black : Colors.white,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             NavTab(
-                text: "Home",
-                isSelected: _selectedIndex == 0,
-                icon: FontAwesomeIcons.house,
-                selectedIcon: FontAwesomeIcons.house,
-                onTap: () => _onTap(0)),
+              text: "Home",
+              isSelected: _selectedIndex == 0,
+              icon: FontAwesomeIcons.house,
+              selectedIcon: FontAwesomeIcons.house,
+              onTap: () => _onTap(0),
+              selectedIndex: _selectedIndex,
+
+            ),
             NavTab(
-                text: "Discover",
-                isSelected: _selectedIndex == 1,
-                icon: FontAwesomeIcons.compass,
-                selectedIcon: FontAwesomeIcons.solidCompass,
-                onTap: () => _onTap(1)),
+              text: "Discover",
+              isSelected: _selectedIndex == 1,
+              icon: FontAwesomeIcons.compass,
+              selectedIcon: FontAwesomeIcons.solidCompass,
+              onTap: () => _onTap(1),
+              selectedIndex: _selectedIndex,
+            ),
             Gaps.h24,
-            GestureDetector(child: PostVideoButton()
-            ,onTap: _onPostVideoTap),
+            GestureDetector(child: PostVideoButton(
+
+            ), onTap: _onPostVideoTap),
             Gaps.h24,
             NavTab(
-                text: "Inbox",
-                isSelected: _selectedIndex == 3,
-                icon: FontAwesomeIcons.message,
-                selectedIcon: FontAwesomeIcons.solidMessage,
-                onTap: () => _onTap(3)),
+              text: "Inbox",
+              isSelected: _selectedIndex == 3,
+              icon: FontAwesomeIcons.message,
+              selectedIcon: FontAwesomeIcons.solidMessage,
+              onTap: () => _onTap(3),
+              selectedIndex: _selectedIndex,
+            ),
             NavTab(
-                text: "Profile",
-                isSelected: _selectedIndex == 4,
-                icon: FontAwesomeIcons.user,
-                selectedIcon: FontAwesomeIcons.solidUser,
-                onTap: () => _onTap(4)),
+              text: "Profile",
+              isSelected: _selectedIndex == 4,
+              icon: FontAwesomeIcons.user,
+              selectedIcon: FontAwesomeIcons.solidUser,
+              onTap: () => _onTap(4),
+              selectedIndex: _selectedIndex,
+            ),
           ],
         ),
       ),
