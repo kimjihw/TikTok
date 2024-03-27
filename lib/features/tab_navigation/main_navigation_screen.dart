@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/discover/discover_screen.dart';
+import 'package:tiktok/features/inbox/inbox_screen.dart';
 import 'package:tiktok/features/tab_navigation/widgets/nav_tab.dart';
 import 'package:tiktok/features/tab_navigation/widgets/post_video_button.dart';
 import 'package:tiktok/features/vidoes/video_timeline_screen.dart';
@@ -15,7 +17,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   void _onTap(int idx) {
     setState(() {
@@ -39,10 +41,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             offstage: _selectedIndex != 0,
             child: VideoTimelineScreen(),
           ),
-          Offstage(offstage: _selectedIndex != 1, child: Container()),
+          Offstage(offstage: _selectedIndex != 1, child: DiscoverScreen()),
           Offstage(
             offstage: _selectedIndex != 3,
-            child: Container(),
+            child: InboxScreen(),
           ),
           Offstage(
             offstage: _selectedIndex != 4,
@@ -64,7 +66,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               selectedIcon: FontAwesomeIcons.house,
               onTap: () => _onTap(0),
               selectedIndex: _selectedIndex,
-
             ),
             NavTab(
               text: "Discover",
@@ -75,9 +76,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               selectedIndex: _selectedIndex,
             ),
             Gaps.h24,
-            GestureDetector(child: PostVideoButton(
-
-            ), onTap: _onPostVideoTap),
+            GestureDetector(
+                child: PostVideoButton(isInverted: _selectedIndex != 0),
+                onTap: _onPostVideoTap),
             Gaps.h24,
             NavTab(
               text: "Inbox",
