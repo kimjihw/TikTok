@@ -79,9 +79,11 @@ class _ActivityScreenState extends State<ActivityScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: GestureDetector(
           onTap: _toggleAnimation,
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("All Activity"),
